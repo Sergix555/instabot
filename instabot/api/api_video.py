@@ -8,6 +8,7 @@ import subprocess
 import time
 import random
 from uuid import uuid4
+import requests
 
 from . import config
 
@@ -45,7 +46,8 @@ def download_video(self, media_id, filename=None, media=False, folder="videos"):
         if os.path.exists(fname):
             print("File %s is exists, return it" % fname)
             return os.path.abspath(fname)
-        response = self.session.get(video_url, stream=True)
+        # response = self.session.get(video_url, stream=True)
+        response = requests.get(video_url, stream=True)
         if response.status_code == 200:
             with open(fname, "wb") as f:
                 response.raw.decode_content = True
